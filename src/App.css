@@ -40,3 +40,16 @@
 .read-the-docs {
   color: #888;
 }
+
+.student-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  text-align: left;
+}
+
+.list {
+  border: 1px solid #ccc;
+  list-style-type: none;
+  padding: 0 5px;
+}
