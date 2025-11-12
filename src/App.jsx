@@ -9,6 +9,22 @@ function App() {
   const [editMode, setEditMode] = useState(false);
   const [editableStudent, setEditableStudent] = useState(null);
 
+  //Derrived State
+  const markPresent = (student) => {
+  setAttendance({ ...attendance, [student]: "present" });
+};
+
+const markAbsent = (student) => {
+  setAttendance({ ...attendance, [student]: "absent" });
+};
+
+  // const presentList = students.filter(
+  //   (student) => attendance[student] === "present"
+  // );
+  // const absentList = students.filter(
+  //   (student) => attendance[student] === "absent"
+  // );
+
   //Functions/Handlers
   const changeNameHandler = (event) => {
     setStudentName(event.target.value);
@@ -17,6 +33,11 @@ function App() {
   const createHandler = (event) => {
     event.preventDefault();
     if (studentName.trim() === "") return;
+    // const newStudent = {
+    //   id: Date.now(),
+    //   name: studentName,
+    //   isPresent: undefined,
+    // };
 
     setStudents([...students, studentName]);
     setStudentName("");
@@ -100,12 +121,32 @@ function App() {
                   >
                     Remove
                   </button>
-                  <button className="bg-green-500 text-white rounded-md p-1 m-1" onClick={() => removeHandler()} >
+
+                  <button
+                    className="bg-green-500 text-white rounded-md p-1 m-1"
+                    onClick={() => markPresent(student)}
+                  >
                     Mark Present
                   </button>
-                  <button onClick={() => removeHandler()}className="bg-gray-500 text-white rounded-md p-1 m-1">
+                  <button
+                    className="bg-gray-500 text-white rounded-md p-1 m-1"
+                    onClick={() => markAbsent(student)}
+                  >
                     Mark Absent
                   </button>
+
+                  {/* <button
+                    className="bg-green-500 text-white rounded-md p-1 m-1"
+                    onClick={() => presentList()}
+                  >
+                    Mark Present
+                  </button>
+                  <button
+                    onClick={() => absentList()}
+                    className="bg-gray-500 text-white rounded-md p-1 m-1"
+                  >
+                    Mark Absent
+                  </button> */}
                 </div>
               </li>
             ))}
@@ -117,10 +158,7 @@ function App() {
             {Object.entries(attendance)
               .filter(([_, status]) => status === "present")
               .map(([student, _], index) => (
-                <li
-                  key={index}
-                  className="border-b border-gray-200 p-2"
-                >
+                <li key={index} className="border-b border-gray-200 p-2">
                   {student}
                 </li>
               ))}
@@ -132,10 +170,7 @@ function App() {
             {Object.entries(attendance)
               .filter(([_, status]) => status === "absent")
               .map(([student, _], index) => (
-                <li
-                  key={index}
-                  className="border-b border-gray-200 p-2"
-                >
+                <li key={index} className="border-b border-gray-200 p-2">
                   {student}
                 </li>
               ))}
